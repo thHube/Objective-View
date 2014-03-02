@@ -21,6 +21,7 @@
 
 -(void)allocateOnGpu;
 -(void)render;
+-(void)recalculateNormals;
 
 
 @end

@@ -42,3 +42,4 @@ obj/%-objc.o: src/%.m
 
 clean:
 	rm obj/*
+	rm bin/*
