@@ -23,6 +23,7 @@
 -(void)render;
 -(void)recalculateNormals;
 
+-(BOOL)needsNormalCalculation;
 
 @end
 

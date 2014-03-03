@@ -20,6 +20,10 @@
     NSMenu* info;
 
     menu = [NSMenu new];
+    [menu addItemWithTitle: @"Open mesh"
+                    action: @selector(openDialogLoadMesh)
+             keyEquivalent: @""];
+
     [menu addItemWithTitle: @"Info"
                     action: NULL
              keyEquivalent: @""];
@@ -31,10 +35,6 @@
     [menu addItemWithTitle: @"Quit" 
                     action: @selector(terminate:) 
              keyEquivalent: @"q"];
-
-    [menu addItemWithTitle: @"Open mesh"
-                    action: @selector(openDialogLoadMesh)
-             keyEquivalent: @""];
 
     info = [NSMenu new];
     [info addItemWithTitle: @"About.. "
@@ -81,7 +81,7 @@
 
 -(void)openDialogLoadMesh
 {
-    /*NSOpenPanel* openDialog = [NSOpenPanel openPanel];
+    NSOpenPanel* openDialog = [NSOpenPanel openPanel];
     [openDialog setCanChooseFiles:YES];
     [openDialog setAllowsMultipleSelection:NO];
     [openDialog setCanChooseDirectories:NO];
@@ -90,8 +90,7 @@
         NSArray* filenames = [openDialog filenames];
         NSString* choice = [filenames objectAtIndex:0];
         [self loadMesh:choice];
-    }*/
-    [self loadMesh:@"./test_data/cow.obj"];
+    }
 }
 
 - (void)dealloc

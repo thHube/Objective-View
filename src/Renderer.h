@@ -1,4 +1,5 @@
 #import <AppKit/NSOpenGLView.h>
+#import <Foundation/Foundation.h>
 
 #include "MathLib.h"
 
@@ -12,7 +13,9 @@
     BOOL    _glInitialized;
     float   _position;
     float  _xRotation;
-    float  _zRotation;
+    float  _yRotation;
+
+    NSPoint _lastDragLocation;
 }
 
 //! Initialization with application parameter. This method directly initialize GLUT.
@@ -28,9 +31,11 @@
 -(void)glReshape:(int)width withHeight:(int)height;
 //@}
 
-//! \name Keyboard events handlers
+//! \name Input events handlers
 //@{
 -(void)keyDown:(NSEvent*)aEvent;
+-(void)mouseDown:(NSEvent*)aEvent;
+-(void)mouseDragged:(NSEvent*)aEvent;
 //@}
 
 

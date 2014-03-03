@@ -89,11 +89,6 @@
     memcpy(verts, _vertexArray, sizeof(float) * 3 * _vertexSize);
     memcpy(faces, _faceArray, sizeof(unsigned int) * 3 * _faceSize);
 
-    FILE* f = fopen("res.txt", "w");
-    for (int j = 0; j < _faceSize; j += 3)
-        fprintf(f, "v %u %u %u \n", faces[j], faces[j + 1], faces[j + 2]);
-    fclose(f);
-
     free(_vertexArray); _vertexArray = NULL;
     free(_faceArray); _faceArray = NULL;
 
@@ -104,7 +99,7 @@
     [_currentMesh setTriangleCount:_faceSize / 3];
 
     NSLog([NSString stringWithFormat: @"Got %d vertices, %d uvs, %d normal and %d faces",
-        _vertexSize, uvCount, normCount, _faceSize]);
+        vertCount, uvCount, normCount, triCount]);
 
     [_currentMesh allocateOnGpu];
     return [_currentMesh retain];
