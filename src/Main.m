@@ -4,7 +4,7 @@
 #import <AppKit/AppKit.h>
 
 #include <stdlib.h>
-#include <GL/gl.h>
+#include <GL/glew.h>
 
 
 int main(int argc, char* argv[]) 
@@ -15,18 +15,11 @@ int main(int argc, char* argv[])
     [NSApplication sharedApplication];
     [NSApp setDelegate: delegate];
 
-    /*
-    Renderer* renderer = [[Renderer alloc] initWithArgs:&argc argVector:argv];
-    renderer.renderFunc = render;
-
-    ObjParser* parser = [[ObjParser alloc] initWithFileName:@"test_data/cow.obj"];
-    Mesh* mesh = [parser parse];
-
-    NSString* title = @"Test title!";
-
-    [renderer renderMainLoop:title];
-    */
-
+    if (!glewInit()) {
+        NSLog(@"Could not initialize GLEW. Exiting");
+        return EXIT_FAILURE;
+    }
+    
     RELEASE(pool);
     return NSApplicationMain(argc, (const char**)argv);
 }

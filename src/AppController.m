@@ -56,7 +56,7 @@
                                               defer: YES];
     [_window setTitle: @"First test"];
 
-    _renderer = [Renderer new];
+    _renderer = [[Renderer alloc]initWithFrame:[_window frame]];
     [_window setContentView: _renderer];
 
     [[_window standardWindowButton:NSWindowCloseButton] setHidden:YES];

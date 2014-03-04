@@ -19,7 +19,7 @@
 }
 
 //! Initialization with application parameter. This method directly initialize GLUT.
--(id)init;
+-(id)initWithFrame:(NSRect)contentRect;
 
 //! Set the render mesh to display
 -(void)setMeshToRender:(Mesh*)mesh;

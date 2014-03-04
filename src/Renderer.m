@@ -4,6 +4,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -17,10 +18,24 @@ static const float SPEED = 0.05f;
 -(BOOL)acceptsFirstResponder { return YES; }
 -(BOOL)acceptsFirstMouse:(NSEvent*)aEvent { return YES; }
 
--(id)init
+-(id)initWithFrame:(NSRect)contentRect
 {
-    self = [super init];
+    NSOpenGLPixelFormatAttribute attrs[] = {
+        NSOpenGLPFAMultisample,
+        NSOpenGLPFASampleBuffers, (NSOpenGLPixelFormatAttribute)1,
+        NSOpenGLPFASamples, (NSOpenGLPixelFormatAttribute)4,
+        NSOpenGLPFAColorSize, 8,
+        NSOpenGLPFADepthSize, 16,
+        NSOpenGLPFADoubleBuffer,
+        0};
+
+    NSOpenGLPixelFormat* pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
+    self = [super initWithFrame:contentRect pixelFormat:pixelFormat];
+    RELEASE(pixelFormat);
+    
     if (self) {
+
+
         self->_glInitialized = NO;
         self->_renderMesh = nil;
 
@@ -49,6 +64,7 @@ static const float SPEED = 0.05f;
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+    glEnable(GL_MULTISAMPLE);
 }
 
 

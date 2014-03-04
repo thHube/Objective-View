@@ -43,7 +43,7 @@
 
     // Sigh, wish Objective-C has some decent containers.
     _vertexArray = (float*)malloc(sizeof(float) * [lines count] * 3);
-    _faceArray = (unsigned int*)malloc(sizeof(unsigned int) * [lines count] * 3);
+    _faceArray = (unsigned int*)malloc(sizeof(unsigned int) * [lines count] * 4);
 
     for (int i = 0; i < [lines count]; ++i) {
         // get current line and split it along whitespace  
@@ -78,7 +78,7 @@
                 triCount ++;
             }
             else if (![selector isEqual:@"#"]) {
-                NSLog(@"Unsupported selector found");
+                NSLog(@"Unsupported selector found %@", current);
             }
         }
     }
@@ -120,8 +120,26 @@
                 NSLog(@"Multi attribute vertex still unsupported");
             }
         }
-    } else {
-        NSLog(@"Quads not supported");
+    } 
+    else if ([split count] <= 5) {
+        for (int i = 1; i < 5; ++i) {
+            NSArray* innerSplit = [[split objectAtIndex:i] componentsSeparatedByString:@"/"];
+            if ([innerSplit count] == 1) {
+                _faceArray[_faceSize++] = [[split objectAtIndex:i] intValue] - 1;
+                if (i == 4) {
+                    // The second triangle is defined with i = 0  and i = 2
+                    _faceArray[_faceSize] = _faceArray[_faceSize - 3];
+                    _faceArray[_faceSize + 1] = _faceArray[_faceSize - 1];
+                    _faceSize += 2;
+                }
+            } 
+            else {
+                NSLog(@"Multi attribute vertex still unsupported");
+            }
+        }
+    }
+    else {
+        NSLog(@"Multi vertex face not supported");
     }
 }
 
